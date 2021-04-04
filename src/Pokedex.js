@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
-import { AppBar, Card, CardContent, CardMedia, CircularProgress, Grid, Toolbar, Typography } from "@material-ui/core"
+import { AppBar, Card, CardContent, CardMedia, CircularProgress, Grid, Toolbar, Typography, TextField } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles";
+import SearchIcon from "@material-ui/icons/Search";
 import { toFirstCharUppercase } from "./constants";
 import axios from "axios"
 
@@ -68,26 +69,34 @@ const Pokedex = (props) => {
   };
 
 
-    return(
-        <>
-         <AppBar position="static">
-             <Toolbar />
-         </AppBar>
-        {pokemonData ? (
-            <Grid container spacing={2} className={classes.pokedexContainer} >
-                {Object.keys(pokemonData).map(
-                    (pokemonId) =>
-                    getPokemonCard(pokemonId)
-                )}
-            </Grid>
-        ) : (
-            <CircularProgress />
-        )}
-         
-           
-        </>
-    )
-}
-
+   return (
+    <>
+      <AppBar position="static">
+        <Toolbar>
+          <div className={classes.searchContainer}>
+            <SearchIcon className={classes.searchIcon} />
+            <TextField
+              className={classes.searchInput}
+              onChange={handleSearchChange}
+              label="Pokemon"
+              variant="standard"
+            />
+          </div>
+        </Toolbar>
+      </AppBar>
+      {pokemonData ? (
+        <Grid container spacing={2} className={classes.pokedexContainer}>
+          {Object.keys(pokemonData).map(
+            (pokemonId) =>
+              pokemonData[pokemonId].name.includes(filter) &&
+              getPokemonCard(pokemonId)
+          )}
+        </Grid>
+      ) : (
+        <CircularProgress />
+      )}
+    </>
+  );
+};
 
 export default Pokedex;
