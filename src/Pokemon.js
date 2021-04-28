@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Typography, Link, CircularProgress, Button } from "@material-ui/core";
+import {  } from "@material-ui/core";
+import {  Button, Card, Image, Loader, Grid, Container, List, Icon } from "semantic-ui-react";
+
 import { toFirstCharUppercase } from "./constants";
 import axios from "axios";
 
@@ -27,36 +29,79 @@ const Pokemon = (props) => {
     const { front_default } = sprites;
     return (
       <>
-        <Typography variant="h1">
-          {`${id}.`} {toFirstCharUppercase(name)}
-          <img src={front_default} />
-        </Typography>
-        <img style={{ width: "300px", height: "300px" }} src={fullImageUrl} />
-        <Typography variant="h3">Pokemon Info</Typography>
-        <Typography>
-          {"Species: "}
-          <Link href={species.url}>{species.name} </Link>
-        </Typography>
-        <Typography>Height: {height} </Typography>
-        <Typography>Weight: {weight} </Typography>
-        <Typography variant="h6"> Types:</Typography>
-        {types.map((typeInfo) => {
-          const { type } = typeInfo;
-          const { name } = type;
-          return <Typography key={name}> {`${name}`}</Typography>;
-        })}
+<Container 
+    style = {{
+      
+
+        }}>
+  <Grid centered columns={3}>
+    <Grid.Column>
+        <Card 
+          style = {{
+            backgroundColor: "transparent",
+            top: "20px",
+      
+        }}>
+        <Card.Content header={`#${id} ${toFirstCharUppercase(name)}`}  textAlign="center"
+          style = {{
+            backgroundColor: "#eee",     
+        }}/>
+        <Image src= {`${fullImageUrl}`}  
+        style = {{
+          backgroundColor: "transparent",
+          
+        }}/>
+        <Card.Content 
+            style = {{
+           backgroundColor: "#eee",     
+          }}>
+            <Card.Header>Pokemon Info</Card.Header>
+            <Card.Content extra>
+            <span>
+              <Icon name="star" />
+              Espécie: {species.name}
+            </span>   
+            </Card.Content>
+            <Card.Content extra>
+            <span>
+              <Icon name="star" />
+              Altura: {height/10} m
+            </span>
+            </Card.Content>
+            <Card.Content extra>
+              <span>
+              <Icon name="star" />
+              Peso: {weight/10} Kg
+              </span>
+            </Card.Content>
+            <Card.Content extra>
+            <span>Tipo(s): </span>
+            {types.map((typeInfo) => {
+              const { type } = typeInfo;
+              const { name } = type;
+              
+              return <List><List.Item key={name}><Icon name='right triangle' />{`${name}`}</List.Item></List>;
+              
+            })}
+           </Card.Content>
+          </Card.Content>
+          
+        </Card>
+      </Grid.Column>
+    </Grid>
+    </Container>
       </>
     );
   };
 
   return (
     <>
-      {pokemon === undefined && <CircularProgress />}
+      {pokemon === undefined && <Loader />}
       {pokemon !== undefined && pokemon && generatePokemonJSX(pokemon)}
-      {pokemon === false && <Typography> Pokemon not found</Typography>}
+      {pokemon === false && <p> Pokemon not found</p>}
 
       {pokemon !== undefined && (
-        <Button variant="contained" onClick={() => history.push("/")}>
+        <Button className="button"variant="contained" onClick={() => history.push("/")}>
           back to pokedex
         </Button>
       )}
@@ -64,4 +109,6 @@ const Pokemon = (props) => {
   );
 };
 
+
 export default Pokemon;
+

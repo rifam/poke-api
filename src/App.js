@@ -2,7 +2,8 @@ import React from "react";
 import Pokedex from "./Pokedex";
 import Pokemon from "./Pokemon";
 import { Route, Switch } from "react-router-dom";
-  
+import 'semantic-ui-css/semantic.min.css';
+
 
 const App = () => (
   <Switch>

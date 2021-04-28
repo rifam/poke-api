@@ -61,7 +61,7 @@ const Pokedex = (props) => {
             style={{ width: "130px", height: "130px" }}
           />
           <CardContent className={classes.cardContent}>
-            <Typography>{`${id}. ${toFirstCharUppercase(name)}`}</Typography>
+            <Typography>{`#${id} ${toFirstCharUppercase(name)}`}</Typography>
           </CardContent>
         </Card>
       </Grid>
